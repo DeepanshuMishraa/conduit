@@ -5,6 +5,7 @@ import (
 
 	"github.com/DeepanshuMishraa/conduit.git/config"
 	"github.com/DeepanshuMishraa/conduit.git/db"
+	"github.com/DeepanshuMishraa/conduit.git/metrics"
 	"github.com/DeepanshuMishraa/conduit.git/routes"
 	"github.com/gin-gonic/gin"
 	"github.com/prometheus/client_golang/prometheus"
@@ -19,6 +20,10 @@ func main() {
 	reg.MustRegister(
 		collectors.NewGoCollector(),
 		collectors.NewProcessCollector(collectors.ProcessCollectorOpts{}),
+
+		metrics.HttpRequestsDuration,
+		metrics.HttpRequestsTotal,
+		metrics.InflightRequests,
 	)
 
 	if err != nil {
@@ -35,6 +40,7 @@ func main() {
 	router.SetTrustedProxies(nil)
 
 	router.Use(RequestLogger(cfg.INSTANCE))
+	router.Use(MetricsMiddleware())
 
 	router.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
