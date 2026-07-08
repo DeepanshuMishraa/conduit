@@ -11,6 +11,7 @@ import (
 type Config struct {
 	DATABASE_URL string
 	PORT         string
+	INSTANCE     string
 }
 
 func Load() (*Config, error) {
@@ -22,8 +23,9 @@ func Load() (*Config, error) {
 
 	DATABASE_URL := os.Getenv("DATABASE_URL")
 	PORT := os.Getenv("PORT")
+	INSTANCE := os.Getenv("INSTANCE")
 
-	if DATABASE_URL == "" || PORT == "" {
+	if DATABASE_URL == "" || PORT == "" || INSTANCE == "" {
 		return nil, errors.New("Environment variables not set")
 	}
 
@@ -32,5 +34,6 @@ func Load() (*Config, error) {
 	return &Config{
 		DATABASE_URL: DATABASE_URL,
 		PORT:         PORT,
+		INSTANCE:     INSTANCE,
 	}, nil
 }

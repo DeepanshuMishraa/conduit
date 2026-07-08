@@ -25,19 +25,13 @@ func main() {
 	router := gin.Default()
 	router.SetTrustedProxies(nil)
 
+	router.Use(RequestLogger(cfg.INSTANCE))
+
 	router.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
 		})
 	})
-
-	if cfg.PORT == ":8081" {
-		log.Println("Response Reached Server 1")
-	} else if cfg.PORT == ":8082" {
-		log.Println("Response Reached Server 2")
-	} else if cfg.PORT == ":8083" {
-		log.Println("Response Reached Server 3")
-	}
 
 	log.Println("[API] RUNNING ON PORT", cfg.PORT)
 	router.GET("/slow", routes.SlowRoute())
