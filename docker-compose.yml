@@ -67,3 +67,16 @@ services:
       - api1
       - api2
       - api3
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: conduit-grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
+volumes:
+  grafana-storage:
