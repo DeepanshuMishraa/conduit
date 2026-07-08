@@ -7,10 +7,19 @@ import (
 	"github.com/DeepanshuMishraa/conduit.git/db"
 	"github.com/DeepanshuMishraa/conduit.git/routes"
 	"github.com/gin-gonic/gin"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/collectors"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func main() {
 	cfg, err := config.Load()
+	reg := prometheus.NewRegistry()
+
+	reg.MustRegister(
+		collectors.NewGoCollector(),
+		collectors.NewProcessCollector(collectors.ProcessCollectorOpts{}),
+	)
 
 	if err != nil {
 		log.Fatal(err)
@@ -37,6 +46,7 @@ func main() {
 	router.GET("/slow", routes.SlowRoute())
 	router.GET("/fast", routes.FastRoute())
 	router.POST("/db", routes.DBRoute(db))
+	router.GET("/metrics", gin.WrapH(promhttp.HandlerFor(reg, promhttp.HandlerOpts{})))
 
 	router.Run(":" + cfg.PORT)
 }
