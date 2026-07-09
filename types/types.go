@@ -6,6 +6,7 @@ type JobRequest struct {
 }
 
 type JobResponse struct {
-	ID      string `json:"id"`
-	Message string `json:"message"`
+	ID           string `json:"id"`
+	Message      string `json:"message"`
+	InstanceName string
 }

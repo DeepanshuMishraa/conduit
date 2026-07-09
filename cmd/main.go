@@ -49,9 +49,9 @@ func main() {
 	})
 
 	log.Println("[API] RUNNING ON PORT", cfg.PORT)
-	router.GET("/slow", routes.SlowRoute())
-	router.GET("/fast", routes.FastRoute())
-	router.POST("/db", routes.DBRoute(db))
+	router.GET("/slow", routes.SlowRoute(cfg.INSTANCE))
+	router.GET("/fast", routes.FastRoute(cfg.INSTANCE))
+	router.POST("/db", routes.DBRoute(db, cfg.INSTANCE))
 	router.GET("/metrics", gin.WrapH(promhttp.HandlerFor(reg, promhttp.HandlerOpts{})))
 
 	router.Run(":" + cfg.PORT)
