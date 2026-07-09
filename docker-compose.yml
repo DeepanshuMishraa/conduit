@@ -4,7 +4,7 @@ services:
   nginx:
     image: nginx:latest
     ports:
-      - "80:80"
+      - "8080:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
@@ -21,7 +21,7 @@ services:
       DATABASE_URL: "postgres://postgres:admin@db:5432/postgres?sslmode=disable"
     depends_on:
       db:
-        condition: service_started
+        condition: service_healthy
     restart: unless-stopped
 
   api2:
@@ -32,7 +32,7 @@ services:
       DATABASE_URL: "postgres://postgres:admin@db:5432/postgres?sslmode=disable"
     depends_on:
       db:
-        condition: service_started
+        condition: service_healthy
     restart: unless-stopped
 
   api3:
@@ -43,7 +43,7 @@ services:
       DATABASE_URL: "postgres://postgres:admin@db:5432/postgres?sslmode=disable"
     depends_on:
       db:
-        condition: service_started
+        condition: service_healthy
     restart: unless-stopped
 
   db:
