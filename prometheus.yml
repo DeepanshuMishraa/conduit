@@ -9,6 +9,6 @@ scrape_configs:
 
     static_configs:
       - targets:
-          - api1:8080
-          - api2:8080
-          - api3:8080
+          - api1:8081
+          - api2:8081
+          - api3:8081
