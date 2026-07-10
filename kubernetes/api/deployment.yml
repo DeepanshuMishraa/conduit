@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: conduit
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: conduit
+
+  template:
+    metadata:
+      labels:
+        app: conduit
+
+  spec:
+    containers:
+      - name: conduit
+        image: deepanshumishra/conduit:v1
+
+        ports:
+          - containerPort: 8081
+        env:
+          - name: DATABASE_URL
+
+            valueFrom:
+              configMapKeyRef:
+                name: api-env
+                key: DATABASE_URL
+
+          - name: PORT
+
+            valueFrom:
+              configMapKeyRef:
+                name: api-env
+                key: PORT
+
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: 8081
+          initialDelaySeconds: 10
+          periodSeconds: 10
+
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: 8081
+          initialDelaySeconds: 5
+          periodSeconds: 5
