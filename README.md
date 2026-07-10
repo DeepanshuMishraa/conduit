@@ -4,6 +4,13 @@ A lightweight reverse proxy and load balancer built with Go.
 
 Conduit is a learning project focused on understanding how production API gateways work. Instead of relying on managed solutions, the goal is to build the core pieces from scratch and gradually evolve the project into a cloud-native gateway.
 
+
+## Arch Diagram 
+
+### Docker Compose Way (Old)
+
+![Docker compose Arch](./conduit-docker-s.png)
+
 ## Features
 
 * Reverse proxy with Nginx
