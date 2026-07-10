@@ -1,0 +1,19 @@
+kubernetes/grafana/service.yml
+  s_756f0fb0fc4a28::t_0f4aefba303dd9 1-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "583aab5cda83414f787026838c18405ea5cb690b",
+  "prompts": {},
+  "sessions": {
+    "s_756f0fb0fc4a28": {
+      "agent_id": {
+        "tool": "pi",
+        "id": "019f4a97-2a86-7609-998a-fd88f896da58",
+        "model": "deepseek-v4-flash"
+      },
+      "human_author": "Deepanshu Mishra <d4deepanshu723@gmail.com>"
+    }
+  }
+}
