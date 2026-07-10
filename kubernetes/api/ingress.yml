@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+
+metadata:
+  name: conduit-ingress
+
+spec:
+  ingressClassName: nginx
+
+  rules:
+    - host: conduit.local
+
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+
+            backend:
+              service:
+                name: conduit-service
+
+                port:
+                  number: 8081
